@@ -4,6 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+<link rel="preload" href="Coundown.mp4" as="video" type="video/mp4">
 <meta charset="UTF-8">
 <title>New Year Countdown 2027</title>
 
@@ -15,8 +16,18 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* FULLSCREEN VIDEO */
+/* FULLSCREEN VIDEO 
 #bgVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+}*/
+
+#bgImage {
     position: fixed;
     top: 0;
     left: 0;
@@ -33,7 +44,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.45);
+    background: rgba(68, 52, 70, 0.507);
     z-index: -1;
 }
 
@@ -184,10 +195,13 @@ h1 {
 
 <body>
 
-<!-- BACKGROUND VIDEO -->
+<!-- BACKGROUND VIDEO 
 <video id="bgVideo" autoplay muted loop playsinline>
     <source src="Video1.mp4" type="video/mp4">
 </video>
+--> 
+<!-- BACKGROUND IMAGE -->
+<img id="bgImage" src="seda.jpg" alt="">
 
 <link rel="preload" href="5mins.MP3" as="audio">
 <link rel="preload" href="10mins.MP3" as="audio">
@@ -242,19 +256,17 @@ h1 {
 
 // ===== TEST MODE
 //const targetTimeUTC = Date.now() + 5 * 1000; //5 Seconds test from now
-const targetTimeUTC = Date.now() + 1805 * 1000;
-// ===== TARGET TIME (UTC) =====
-// Jan 1, 2026 00:00 GMT+8 example:
-// Date.UTC(2025, 11, 31, 16, 0, 0)
+// const targetTimeUTC = Date.now() + 10 * 1000;
 
-/* const targetTimeUTC = Date.UTC(2026, 11, 31, 16, 0, 0); */
+
+const targetTimeUTC = Date.UTC(2026, 11, 31, 16, 0, 0);
 
 const countdownEl = document.getElementById("countdown");
 const titleEl = document.getElementById("title");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
-const bgVideo = document.getElementById("bgVideo");
-const videoSource = bgVideo.querySelector("source");
+/* const bgVideo = document.getElementById("bgVideo");              >>=====THIS MAKES A VIDEO BACKGROUND=====<<
+const videoSource = bgVideo.querySelector("source"); */
 
 const audioBtn = document.getElementById("audioBtn");
 const cues = [
@@ -268,7 +280,7 @@ let soundEnabled = false;
 
 audioBtn.addEventListener("click", () => {
     soundEnabled = true;
-    bgVideo.muted = false;
+    /* bgVideo.muted = false;   //>>===mutes the video===<<  */
     audioBtn.textContent = "Sound enabled";
     audioBtn.disabled = true;
 });
@@ -293,10 +305,10 @@ function updateCountdown() {
             message.textContent = "HAPPY NEW YEAR!";
             document.querySelector(".container").appendChild(message);
 
-            bgVideo.pause();
-            videoSource.src = "Coundown.mp4";
-            bgVideo.load();
-            bgVideo.play();
+            //bgVideo.pause(); //==This four lines related to video bg
+            //videoSource.src = "Coundown.mp4";
+            //bgVideo.load();
+            //bgVideo.play();
         }
         return;
     }
